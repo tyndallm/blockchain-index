@@ -12,17 +12,27 @@ import cx from 'classnames';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Navigation.css';
 import Link from '../Link';
+import {
+  Navbar,
+  Nav,
+  NavItem,
+  NavDropdown,
+  MenuItem,
+} from 'react-bootstrap';
 
 function Navigation({ className }) {
   return (
-    <div className={cx(s.root, className)} role="navigation">
-      <Link className={s.link} to="/about">About</Link>
-      <Link className={s.link} to="/contact">Contact</Link>
-      <span className={s.spacer}> | </span>
-      <Link className={s.link} to="/login">Log in</Link>
-      <span className={s.spacer}>or</span>
-      <Link className={cx(s.link, s.highlight)} to="/register">Sign up</Link>
-    </div>
+    <Nav>
+        <NavItem eventKey={1} href="/about">About</NavItem>
+        <NavItem eventKey={2} href="/portfolio">Portfolio</NavItem>
+        <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+          <MenuItem eventKey={3.1}>Action</MenuItem>
+          <MenuItem eventKey={3.2}>Another action</MenuItem>
+          <MenuItem eventKey={3.3}>Something else here</MenuItem>
+          <MenuItem divider />
+          <MenuItem eventKey={3.3}>Separated link</MenuItem>
+        </NavDropdown>
+      </Nav>
   );
 }
 
