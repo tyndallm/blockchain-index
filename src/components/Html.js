@@ -21,7 +21,8 @@ function Html({ title, description, style, script, state, children }) {
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-        {style && <style id="css" dangerouslySetInnerHTML={{ __html: style }} />}
+        <link rel="stylesheet" href="/css/bootstrap.min.css" />
+        <style id="css" dangerouslySetInnerHTML={{ __html: style }} />
       </head>
       <body>
         <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
