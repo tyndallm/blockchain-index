@@ -10,13 +10,10 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import {
-  Navbar,
-  Nav,
-  NavItem,
-  NavDropdown,
-  MenuItem,
+  Navbar
 } from 'react-bootstrap';
 import Link from '../Link';
+import Navigation from '../Navigation';
 import s from './Header.css';
 
 function Header() {
@@ -24,20 +21,11 @@ function Header() {
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link className={s.brand} to="/">Your Company</Link>
+          <Link className={s.brand} to="/">Cryptowealth</Link>
         </Navbar.Brand>
       </Navbar.Header>
-      <Nav>
-        <NavItem eventKey={1} href="#">Link</NavItem>
-        <NavItem eventKey={2} href="#">Link</NavItem>
-        <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-          <MenuItem eventKey={3.1}>Action</MenuItem>
-          <MenuItem eventKey={3.2}>Another action</MenuItem>
-          <MenuItem eventKey={3.3}>Something else here</MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey={3.3}>Separated link</MenuItem>
-        </NavDropdown>
-      </Nav>
+      <Navigation></Navigation>
+
     </Navbar>
   );
 }
