@@ -1,10 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import {
-  Navbar
-} from 'react-bootstrap';
 
-
+import {Line} from 'react-chartjs-2';
 
 import s from './PortfolioChart.css';
 
@@ -99,59 +96,44 @@ class PortfolioChart extends Component {
       }
     ]
 
-    let chartData = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+    const data = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October','November','December'],
       datasets: [
-          {
-              label: "My First dataset",
-              fill: false,
-              lineTension: 0.1,
-              backgroundColor: "rgba(75,192,192,0.4)",
-              borderColor: "rgba(75,192,192,1)",
-              borderCapStyle: 'butt',
-              borderDash: [],
-              borderDashOffset: 0.0,
-              borderJoinStyle: 'miter',
-              pointBorderColor: "rgba(75,192,192,1)",
-              pointBackgroundColor: "#fff",
-              pointBorderWidth: 1,
-              pointHoverRadius: 5,
-              pointHoverBackgroundColor: "rgba(75,192,192,1)",
-              pointHoverBorderColor: "rgba(220,220,220,1)",
-              pointHoverBorderWidth: 2,
-              pointRadius: 1,
-              pointHitRadius: 10,
-              data: [65, 59, 80, 81, 56, 55, 40],
-              spanGaps: false,
-          }
+        {
+          label: 'Total Value (USD)',
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: 'rgba(75,192,192,0.4)',
+          borderColor: 'rgba(75,192,192,1)',
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: 'rgba(75,192,192,1)',
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [1215, 2120, 4500, 9567, 16430, 12400, 13000, 12000, 11200, 10900]
+        }
       ]
     };
 
-    let chartOptions = {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    };
-
-    // let chart;
-
-    // if(window === undefined) {
-    //   chart = (<div></div>);
-    // } else {
-    //   const Line = require('react-chartjs-2');
-    //   chart = (<Line data={chartData} />)
-    //   console.log("chart: ", chart);
-    // }
+    const options = {
+      maintainAspectRatio: false,
+    }
 
     return (
-      <p>...</p>
+      <div className={s.root}>
+        <Line data={data} width={100} height={200} options={options}/>
+      </div>
     );
   }
 
 }
 
-export default PortfolioChart;
+export default withStyles(s)(PortfolioChart);

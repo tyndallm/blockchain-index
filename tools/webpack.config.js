@@ -216,6 +216,9 @@ const clientConfig = extend(true, {}, config, {
     // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
     new webpack.DefinePlugin({ ...GLOBALS, 'process.env.BROWSER': true }),
 
+    // Fix window issue for chartjs
+    new webpack.DefinePlugin({'process.env.BROWSER': JSON.stringify(true)}),
+
     // Emit a file with assets paths
     // https://github.com/sporto/assets-webpack-plugin#options
     new AssetsPlugin({
