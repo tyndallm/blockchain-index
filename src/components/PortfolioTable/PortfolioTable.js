@@ -4,7 +4,7 @@ import {
   Navbar
 } from 'react-bootstrap';
 import {
-  Table
+  Table,
 } from 'react-bootstrap';
 
 import s from './Portfolio.css';
@@ -23,10 +23,10 @@ class PortfolioTable extends Component {
             <td>{investment.symbol}</td>
             <td>{investment.currency}</td>
             <td>{investment.units}</td>
-            <td>{investment.value_btc}</td>
-            <td>${investment.value_usd}</td>
-            <td>{investment.total_btc}</td>
-            <td>${investment.total_usd}</td>
+            <td>{((investment.units * investment.current_btc) - investment.purchase_total_btc).toFixed(2)}</td>
+            <td>${((investment.units * investment.current_usd) - investment.purchase_total_usd).toFixed(2)}</td>
+            <td>{(investment.units * investment.current_btc).toFixed(2)}</td>
+            <td>${(investment.units * investment.current_usd).toFixed(2)}</td>
           </tr>
       );
     });
@@ -34,51 +34,87 @@ class PortfolioTable extends Component {
   }
 
   render() {
-    let investments = [
+    let portfolioData = [
       {
         "symbol": "ETH",
         "currency": "Ethereum",
         "units": 250,
-        "value_btc": 0.01865566,
-        "value_usd": 11.8762,
-        "total_btc": 4.5724575,
-        "total_usd": 2928.48
+        "purchase_total_usd": 216.867, // (0.35 * 619.62) / 700 = 0.309
+        "purchase_total_btc": 0.35, // 0.35 / 700 = 0.0005
+        "current_usd": 11.8862,
+        "current_btc": 0.01860000
       },
       {
         "symbol": "XMR",
         "currency": "Monero",
         "units": 800,
-        "value_btc": 0.01138037,
-        "value_usd": 7.29,
-        "total_btc": 9.104296,
-        "total_usd": 5833.92
+        "purchase_total_usd": 5833.92, // If purchase price unknown set at current value when investment is added to the site ex. 800 * 6.87
+        "purchase_total_btc": 9.104, // ex. 800 * 0.01075000
+        "current_usd": 6.87,
+        "current_btc": 0.01075000
       },
       {
         "symbol": "DGD",
         "currency": "Digix DAO",
         "units": 25,
-        "value_btc": 0.01770158,
-        "value_usd": 11.34,
-        "total_btc": 0.4425395,
-        "total_usd": 283.56
+        "purchase_total_usd": 283.56,
+        "purchase_total_btc": 0.48087,
+        "current_usd": 11.2463,
+        "current_btc": 0.0176005
+      },
+      {
+        "symbol": "REP",
+        "currency": "Augur",
+        "units": 97.62,
+        "purchase_total_usd": 545.82,
+        "purchase_total_btc": 0.8521,
+        "current_usd": 5.8101,
+        "current_btc": 0.00909196
+      },
+      {
+        "symbol": "SNGLS",
+        "currency": "SingularDTV",
+        "units": 53920,
+        "purchase_total_usd": 819.58,
+        "purchase_total_btc": 1.2806,
+        "current_usd": 0.0145,
+        "current_btc": 0.00002269
+      },
+      {
+        "symbol": "AMP",
+        "currency": "Synereo",
+        "units": 3968,
+        "purchase_total_usd": 742.41,
+        "purchase_total_btc": 1.15929088,
+        "current_usd": 0.1747,
+        "current_btc": 0.00027346
+      },
+      {
+        "symbol": "PLU",
+        "currency": "Plutons",
+        "units": 90.38,
+        "purchase_total_usd": 141.90,
+        "purchase_total_btc": 0.22170214,
+        "current_usd": 1.72,
+        "current_btc": 0.00269163
       }
-    ];
+    ]
 
     return (
-      <Table class="table">
+      <Table>
         <thead>
           <tr>
             <th>Symbol</th>
             <th>Currency</th>
             <th>Units</th>
-            <th>Value(BTC)</th>
-            <th>Value(USD)</th>
-            <th>Total(BTC)</th>
-            <th>Total(USD)</th>
+            <th>Change (BTC)</th>
+            <th>Change (USD)</th>
+            <th>Total (BTC)</th>
+            <th>Total (USD)</th>
           </tr>
         </thead>
         <tbody>
-        {this.getTableRows(investments)}
+        {this.getTableRows(portfolioData)}
         </tbody>
       </Table>
     );
