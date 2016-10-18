@@ -15,13 +15,25 @@ class Portfolio extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    let user = {};
+    let user = {
+      currencies: [
+        "BTC",
+        "ETH",
+        "XMR",
+        "SNGLS",
+        "REP",
+        "AMP",
+        "PLU",
+        "DGD"
+      ]
+    };
     console.log("[Portfolio.componentDidMount]");
     dispatch(fetchCurrenciesIfNeeded(user));
   }
 
   render() {
-    console.log(this.props);
+    const { portfolio } = this.props;
+    let retrievedCurrencies = portfolio.items;
     return (
       <Layout>
         <div className={s.root}>
@@ -29,7 +41,7 @@ class Portfolio extends Component {
             <h1>Overview</h1>
             <PortfolioChart></PortfolioChart>
             <PortfolioSummary></PortfolioSummary>
-            <PortfolioTable></PortfolioTable>
+            <PortfolioTable data={retrievedCurrencies}></PortfolioTable>
           </div>
         </div>
       </Layout>

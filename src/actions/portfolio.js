@@ -14,9 +14,21 @@ export function receiveCurrencies(user, json) {
   return {
     type: RECEIVE_CURRENCIES,
     user,
-    currencies: json,
+    currencies: mapToUserCurrencies(user.currencies, json),
     receivedAt: Date.now()
   }
+}
+
+function mapToUserCurrencies(userCurrenices, fetchedCurrencies) {
+  let desiredCurrencies = [];
+  fetchedCurrencies.forEach(function (currency) {
+    userCurrenices.forEach(function (userCurrency) {
+      if (userCurrency === currency.symbol) {
+        desiredCurrencies.push(currency);
+      }
+    });
+  });
+  return desiredCurrencies;
 }
 
 function fetchCurrencies(user) {

@@ -12,25 +12,38 @@ import s from './Portfolio.css';
 class PortfolioTable extends Component {
 
   static propTypes = {
-    investments : React.PropTypes.array
+    investments : React.PropTypes.array,
+    data: React.PropTypes.array
   }
 
-  getTableRows = (investmentObjs) => {
-    let rows = [];
-    investmentObjs.forEach(function(investment) {
-      rows.push(
-          <tr>
-            <td>{investment.symbol}</td>
-            <td>{investment.currency}</td>
-            <td>{investment.units}</td>
-            <td>{((investment.units * investment.current_btc) - investment.purchase_total_btc).toFixed(2)}</td>
-            <td>${((investment.units * investment.current_usd) - investment.purchase_total_usd).toFixed(2)}</td>
-            <td>{(investment.units * investment.current_btc).toFixed(2)}</td>
-            <td>${(investment.units * investment.current_usd).toFixed(2)}</td>
-          </tr>
-      );
-    });
-    return rows;
+  getTableRows = (investmentObjs, fetchedData) => {
+    if (!fetchedData) {
+      return "";
+    } else {
+      let rows = [];
+      console.log("getTableRow: ", fetchedData);
+      investmentObjs.forEach(function(investment) {
+        let match = {};
+        fetchedData.forEach( function(retrievedInvestment) {
+          if (retrievedInvestment.symbol === investment.symbol) {
+            match = retrievedInvestment;
+          }
+        })
+        rows.push(
+            <tr>
+              <td>{investment.symbol}</td>
+              <td>{investment.currency}</td>
+              <td>{investment.units}</td>
+              <td>{((investment.units * match.price_btc) - investment.purchase_total_btc).toFixed(2)}</td>
+              <td>${((investment.units * match.price_usd) - investment.purchase_total_usd).toFixed(2)}</td>
+              <td>{(investment.units * match.price_btc).toFixed(2)}</td>
+              <td>${(investment.units * match.price_usd).toFixed(2)}</td>
+            </tr>
+        );
+      });
+      return rows;
+    }
+
   }
 
   render() {
@@ -100,6 +113,10 @@ class PortfolioTable extends Component {
       }
     ]
 
+    //console.log("Portfolio table props: ", this.props);
+
+    let fetchedData = this.props.data;
+
     return (
       <Table>
         <thead>
@@ -114,7 +131,7 @@ class PortfolioTable extends Component {
           </tr>
         </thead>
         <tbody>
-        {this.getTableRows(portfolioData)}
+        {this.getTableRows(portfolioData, fetchedData)}
         </tbody>
       </Table>
     );
