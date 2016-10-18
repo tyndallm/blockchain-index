@@ -129,7 +129,7 @@ class PortfolioChart extends Component {
 
     return (
       <div className={s.root}>
-        <Line data={data} width={100} height={200} options={options}/>
+        <Line data={data} width={100} height={300} options={options}/>
       </div>
     );
   }
