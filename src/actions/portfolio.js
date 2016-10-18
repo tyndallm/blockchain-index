@@ -14,25 +14,34 @@ export function receiveCurrencies(user, json) {
   return {
     type: RECEIVE_CURRENCIES,
     user,
-    currencies: mapToUserCurrencies(user.currencies, json),
+    items: mapToUserHoldings(user.holdings, json),
     receivedAt: Date.now()
   }
 }
 
-function mapToUserCurrencies(userCurrenices, fetchedCurrencies) {
-  let desiredCurrencies = [];
-  fetchedCurrencies.forEach(function (currency) {
-    userCurrenices.forEach(function (userCurrency) {
-      if (userCurrency === currency.symbol) {
-        desiredCurrencies.push(currency);
+function mapToUserHoldings(userHoldings, currentValues) {
+  let valuationObjects = [];
+  currentValues.forEach(function (currency) {
+    userHoldings.forEach(function (userHolding) {
+      if (userHolding.symbol === currency.symbol) {
+        valuationObjects.push(createHoldingsValuationObject(userHolding, currency));
       }
     });
   });
-  return desiredCurrencies;
+  return valuationObjects;
+}
+
+function createHoldingsValuationObject(holding, valuation) {
+  let holdingValuation = holding;
+  holdingValuation.name = valuation.name;
+  holdingValuation.unit_price_usd = valuation.price_usd;
+  holdingValuation.unit_price_btc = valuation.price_btc;
+  holdingValuation.current_total_usd = holding.units * valuation.price_usd;
+  holdingValuation.current_total_btc = holding.units * valuation.price_btc;
+  return holdingValuation;
 }
 
 function fetchCurrencies(user) {
-  console.log("[fetchCurrencies] ", user);
   return dispatch => {
     dispatch(requestCurrencies(user))
     return fetch(`https://api.coinmarketcap.com/v1/ticker/?limit=100`)

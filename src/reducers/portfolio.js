@@ -19,7 +19,7 @@ export default function portfolio(state = {}, action) {
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        items: action.currencies,
+        items: action.items,
         lastUpdated: action.receivedAt
       })
     default:
