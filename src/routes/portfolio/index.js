@@ -1,11 +1,11 @@
 import React from 'react';
 import Portfolio from './Portfolio';
 
-const title = 'Portfolio';
+const title = '2017 Blockchain Index';
 
 export default {
 
-  path: '/portfolio',
+  path: '/',
 
   action() {
     return {

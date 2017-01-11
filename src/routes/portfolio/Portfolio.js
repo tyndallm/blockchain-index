@@ -5,7 +5,7 @@ import Layout from '../../components/Layout';
 import PortfolioTable from '../../components/PortfolioTable';
 import PortfolioSummary from '../../components/PortfolioSummary';
 import PortfolioChart from '../../components/PortfolioChart';
-import { fetchCurrenciesIfNeeded } from '../../actions/portfolio';
+import { fetchCurrenciesIfNeeded, fetchChartDataIfNeeded } from '../../actions/portfolio';
 import {
   Table
 } from 'react-bootstrap';
@@ -13,51 +13,47 @@ import s from './Portfolio.css';
 
 class Portfolio extends Component {
 
+  calculateWeekTotalWealth = () => {
+
+  }
+
+  calculateDayTotalWealth = () => {
+
+  }
+
   componentDidMount() {
     const { dispatch } = this.props;
     let user = {
       holdings: [
+      {
+          "symbol": "BTC",
+          "units": 0.3295,
+          "purchase_total_usd": 300,
+          "purchase_total_btc": 0.3295
+        },
         {
           "symbol": "ETH",
-          "units": 250,
-          "purchase_total_usd": 216.867,
-          "purchase_total_btc": 0.35
+          "units": 29.49,
+          "purchase_total_usd": 300,
+          "purchase_total_btc": 0.3295
         },
         {
           "symbol": "XMR",
-          "units": 800,
-          "purchase_total_usd": 5833.92,
-          "purchase_total_btc": 9.104
-        },
-        {
-          "symbol": "DGD",
-          "units": 25,
-          "purchase_total_usd": 283.56,
-          "purchase_total_btc": 0.48087
-        },
-        {
-          "symbol": "SNGLS",
-          "units": 53920,
-          "purchase_total_usd": 819.58,
-          "purchase_total_btc": 1.2806
+          "units": 21.15,
+          "purchase_total_usd": 300,
+          "purchase_total_btc": 0.3295
         },
         {
           "symbol": "REP",
-          "units": 97.62,
-          "purchase_total_usd": 545.82,
-          "purchase_total_btc": 0.8521
+          "units": 11.03,
+          "purchase_total_usd": 50,
+          "purchase_total_btc": 0.0549
         },
         {
-          "symbol": "AMP",
-          "units": 3968,
-          "purchase_total_usd": 742.41,
-          "purchase_total_btc": 1.15929088
-        },
-        {
-          "symbol": "PLU",
-          "units": 90.38,
-          "purchase_total_usd": 141.90,
-          "purchase_total_btc": 0.22170214
+          "symbol": "DGD",
+          "units": 5.66,
+          "purchase_total_usd": 50,
+          "purchase_total_btc": 0.0549
         }
       ]
     };
@@ -66,17 +62,15 @@ class Portfolio extends Component {
   }
 
   render() {
-    console.log("props: ", this.props);
     let portfolioData = this.props.portfolio.items ? this.props.portfolio.items : [];
-
-    //console.log("[portfolio container]", portfolioData);
+    let chartData = [1000, null, null, null, null, null, null, null, null, null, null, null];
 
     return (
       <Layout>
         <div className={s.root}>
           <div className={s.container}>
-            <h1>Overview</h1>
-            <PortfolioChart></PortfolioChart>
+            <h1>2017 Blockchain Index</h1>
+            <PortfolioChart chartData={chartData}></PortfolioChart>
             <PortfolioSummary holdings={portfolioData}></PortfolioSummary>
             <PortfolioTable holdings={portfolioData}></PortfolioTable>
           </div>

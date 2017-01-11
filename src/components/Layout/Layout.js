@@ -17,10 +17,7 @@ import Footer from '../Footer';
 function Layout({ children }) {
   return (
     <div>
-      <Header />
       {Children.only(children)}
-      <Feedback />
-      <Footer />
     </div>
   );
 }

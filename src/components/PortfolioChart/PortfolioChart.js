@@ -8,100 +8,28 @@ import s from './PortfolioChart.css';
 class PortfolioChart extends Component {
 
   static propTypes = {
-    investments : React.PropTypes.array
+    chartData : React.PropTypes.array
   }
 
-  // getTableRows = (investmentObjs) => {
-  //   let rows = [];
-  //   investmentObjs.forEach(function(investment) {
-  //     rows.push(
-  //         <tr>
-  //           <td>{investment.symbol}</td>
-  //           <td>{investment.currency}</td>
-  //           <td>{investment.units}</td>
-  //           <td>{((investment.units * investment.current_btc) - investment.purchase_total_btc).toFixed(2)}</td>
-  //           <td>${((investment.units * investment.current_usd) - investment.purchase_total_usd).toFixed(2)}</td>
-  //           <td>{(investment.units * investment.current_btc).toFixed(2)}</td>
-  //           <td>${(investment.units * investment.current_usd).toFixed(2)}</td>
-  //         </tr>
-  //     );
-  //   });
-  //   return rows;
-  // }
+  getDailyChartLabels = () => {
+    return ['12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+  }
+
+  getYearlyChartLabels = () => {
+    return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October','November','December'];
+  }
 
   render() {
-    let portfolioData = [
-      {
-        "symbol": "ETH",
-        "currency": "Ethereum",
-        "units": 250,
-        "purchase_total_usd": 216.867, // (0.35 * 619.62) / 700 = 0.309
-        "purchase_total_btc": 0.35, // 0.35 / 700 = 0.0005
-        "current_usd": 11.8862,
-        "current_btc": 0.01860000
-      },
-      {
-        "symbol": "XMR",
-        "currency": "Monero",
-        "units": 800,
-        "purchase_total_usd": 5833.92, // If purchase price unknown set at current value when investment is added to the site ex. 800 * 6.87
-        "purchase_total_btc": 9.104, // ex. 800 * 0.01075000
-        "current_usd": 6.87,
-        "current_btc": 0.01075000
-      },
-      {
-        "symbol": "DGD",
-        "currency": "Digix DAO",
-        "units": 25,
-        "purchase_total_usd": 283.56,
-        "purchase_total_btc": 0.48087,
-        "current_usd": 11.2463,
-        "current_btc": 0.0176005
-      },
-      {
-        "symbol": "REP",
-        "currency": "Augur",
-        "units": 97.62,
-        "purchase_total_usd": 545.82,
-        "purchase_total_btc": 0.8521,
-        "current_usd": 5.8101,
-        "current_btc": 0.00909196
-      },
-      {
-        "symbol": "SNGLS",
-        "currency": "SingularDTV",
-        "units": 53920,
-        "purchase_total_usd": 819.58,
-        "purchase_total_btc": 1.2806,
-        "current_usd": 0.0145,
-        "current_btc": 0.00002269
-      },
-      {
-        "symbol": "AMP",
-        "currency": "Synereo",
-        "units": 3968,
-        "purchase_total_usd": 742.41,
-        "purchase_total_btc": 1.15929088,
-        "current_usd": 0.1747,
-        "current_btc": 0.00027346
-      },
-      {
-        "symbol": "PLU",
-        "currency": "Plutons",
-        "units": 90.38,
-        "purchase_total_usd": 141.90,
-        "purchase_total_btc": 0.22170214,
-        "current_usd": 1.72,
-        "current_btc": 0.00269163
-      }
-    ]
+
+    const { chartData } = this.props;
+    console.log(chartData);
 
     const data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October','November','December'],
+      labels: this.getYearlyChartLabels(),
       datasets: [
         {
           label: 'Total Value (USD)',
-          fill: false,
+          fill: true,
           lineTension: 0.1,
           backgroundColor: 'rgba(75,192,192,0.4)',
           borderColor: 'rgba(75,192,192,1)',
@@ -118,13 +46,17 @@ class PortfolioChart extends Component {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: [1215, 2120, 4500, 9567, 16430, 12400, 13000, 12000, 11200, 10900]
+          spanGaps: true,
+          data: chartData
         }
       ]
     };
 
     const options = {
       maintainAspectRatio: false,
+      legend: {
+        position: 'bottom'
+      }
     }
 
     return (

@@ -2,6 +2,8 @@ import fetch from 'isomorphic-fetch';
 
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIES';
+export const REQUEST_CHART_DATA = 'REQUEST_CHART_DATA';
+export const RECEIVE_CHART_DATA = 'RECEIVE_CHART_DATA';
 
 export function requestCurrencies(user) {
   return {
@@ -15,6 +17,22 @@ export function receiveCurrencies(user, json) {
     type: RECEIVE_CURRENCIES,
     user,
     items: mapToUserHoldings(user.holdings, json),
+    receivedAt: Date.now()
+  }
+}
+
+export function requestChartData(user) {
+  return {
+    type: REQUEST_CHART_DATA,
+    user
+  }
+}
+
+export function receiveChartData(user, json) {
+  return {
+    type: RECEIVE_CHART_DATA,
+    user,
+    data: json,
     receivedAt: Date.now()
   }
 }
@@ -50,9 +68,24 @@ function fetchCurrencies(user) {
   }
 }
 
+function fetchChartData(user) {
+  return dispatch => {
+    dispatch(requestChartData(user))
+    return fetch(`http://localhost:8080/api/cryptos`)
+      .then(response => response.json())
+      .then(json => dispatch(receiveChartData(user, json)))
+  }
+}
+
 export function fetchCurrenciesIfNeeded(user) {
   return (dispatch, getState) => {
     return dispatch(fetchCurrencies(user));
+  }
+}
+
+export function fetchChartDataIfNeeded(user) {
+  return (dispatch, getState) => {
+    return dispatch(fetchChartData(user));
   }
 }
 

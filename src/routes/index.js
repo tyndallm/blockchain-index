@@ -16,11 +16,6 @@ export default {
 
   // Keep in mind, routes are evaluated in order
   children: [
-    require('./home').default,
-    require('./contact').default,
-    require('./login').default,
-    require('./register').default,
-    require('./admin').default,
     require('./portfolio').default,
 
     // place new routes before...
@@ -38,7 +33,7 @@ export default {
     } while (!route);
 
     // Provide default values for title, description etc.
-    route.title = `${route.title || 'Untitled Page'} - www.reactstarterkit.com`;
+    route.title = `${route.title || 'Untitled Page'} - index.tyndl.me`;
     route.description = route.description || '';
 
     return route;

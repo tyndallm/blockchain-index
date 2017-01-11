@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 import {
   Table,
+  Glyphicon,
 } from 'react-bootstrap';
 
 import s from './Portfolio.css';
@@ -19,6 +20,12 @@ class PortfolioTable extends Component {
   getTableRows = (portfolioData) => {
     let rows = [];
     portfolioData.forEach(function(holding) {
+      let indicator = "";
+      if (holding.current_total_usd > holding. purchase_total_usd) {
+        indicator = "triangle-top";
+      } else {
+        indicator = "triangle-bottom";
+      }
       rows.push(
           <tr>
             <td>{holding.symbol}</td>
@@ -28,6 +35,7 @@ class PortfolioTable extends Component {
             <td>${((holding.units * holding.unit_price_usd) - holding.purchase_total_usd).toFixed(2)}</td>
             <td>{(holding.current_total_btc).toFixed(2)}</td>
             <td>${(holding.current_total_usd).toFixed(2)}</td>
+            <td><Glyphicon glyph={indicator} /></td>
           </tr>
       );
     });
@@ -40,7 +48,7 @@ class PortfolioTable extends Component {
     let portfolioData = holdings ? holdings : [];
 
     return (
-      <Table>
+      <Table responsive>
         <thead>
           <tr>
             <th>Symbol</th>
@@ -50,6 +58,7 @@ class PortfolioTable extends Component {
             <th>Change (USD)</th>
             <th>Total (BTC)</th>
             <th>Total (USD)</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
