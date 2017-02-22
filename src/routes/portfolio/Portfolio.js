@@ -21,6 +21,13 @@ class Portfolio extends Component {
 
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayChart: true
+    };
+  }
+
   componentDidMount() {
     const { dispatch } = this.props;
     let user = {
@@ -61,9 +68,29 @@ class Portfolio extends Component {
     dispatch(fetchCurrenciesIfNeeded(user));
   }
 
-  render() {
+  handleToggleDisplayed = () => {
+    console.log("Clicked button");
+    this.setState({
+      displayChart: !this.state.displayChart
+    });
+  }
+
+  getDisplayedComponent = () => {
     let portfolioData = this.props.portfolio.items ? this.props.portfolio.items : [];
     let chartData = [1000, 1017.03, null, null, null, null, null, null, null, null, null, null];
+
+    if (this.state.displayChart) {
+      return (
+        <PortfolioChart chartData={chartData}></PortfolioChart>
+      );
+    } else {
+      return (
+        <PortfolioTable holdings={portfolioData}></PortfolioTable>
+      );
+    }
+  }
+
+  render() {
 
     return (
       <Layout>
@@ -72,9 +99,10 @@ class Portfolio extends Component {
             <div className={s.left}>
               <h1>Blockchain Index 2017</h1>
               <p>At the beginning of this year I decided to set aside $1000 and invested it in what I believed at the time to be the most promising digital cryptocurrency assets. Here you can see the investments monthly performance.</p>
+              <button onClick={this.handleToggleDisplayed}>{this.state.displayChart ? "Show table" : "Show chart"}</button>
             </div>
             <div className={s.right}>
-              <PortfolioChart chartData={chartData}></PortfolioChart>
+              {this.getDisplayedComponent()}
             </div>
           </div>
         </div>
