@@ -63,16 +63,19 @@ class Portfolio extends Component {
 
   render() {
     let portfolioData = this.props.portfolio.items ? this.props.portfolio.items : [];
-    let chartData = [1000, null, null, null, null, null, null, null, null, null, null, null];
+    let chartData = [1000, 1017.03, null, null, null, null, null, null, null, null, null, null];
 
     return (
       <Layout>
         <div className={s.root}>
           <div className={s.container}>
-            <h1>2017 Blockchain Index</h1>
-            <PortfolioChart chartData={chartData}></PortfolioChart>
-            <PortfolioSummary holdings={portfolioData}></PortfolioSummary>
-            <PortfolioTable holdings={portfolioData}></PortfolioTable>
+            <div className={s.left}>
+              <h1>Blockchain Index 2017</h1>
+              <p>At the beginning of this year I decided to set aside $1000 and invested it in what I believed at the time to be the most promising digital cryptocurrency assets. Here you can see the investments monthly performance.</p>
+            </div>
+            <div className={s.right}>
+              <PortfolioChart chartData={chartData}></PortfolioChart>
+            </div>
           </div>
         </div>
       </Layout>

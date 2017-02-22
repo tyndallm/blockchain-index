@@ -16,7 +16,7 @@ class PortfolioChart extends Component {
   }
 
   getYearlyChartLabels = () => {
-    return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October','November','December'];
+    return ['1', '2', '3', '4', '5', '6', '7', '8', '9','10','11','12'];
   }
 
   render() {
@@ -29,22 +29,22 @@ class PortfolioChart extends Component {
       datasets: [
         {
           label: 'Total Value (USD)',
-          fill: true,
+          fill: false,
           lineTension: 0.1,
-          backgroundColor: 'rgba(75,192,192,0.4)',
-          borderColor: 'rgba(75,192,192,1)',
+          backgroundColor: 'rgba(255, 255, 255, 0.15)',
+          borderColor: '#53E0F6',
           borderCapStyle: 'butt',
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: 'miter',
-          pointBorderColor: 'rgba(75,192,192,1)',
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+          pointBorderColor: '#53E0F6',
+          pointBackgroundColor: '#53E0F6',
+          pointBorderWidth: 5,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: '#53E0F6',
           pointHoverBorderColor: 'rgba(220,220,220,1)',
           pointHoverBorderWidth: 2,
-          pointRadius: 1,
+          pointRadius: 3,
           pointHitRadius: 10,
           spanGaps: true,
           data: chartData
@@ -55,7 +55,43 @@ class PortfolioChart extends Component {
     const options = {
       maintainAspectRatio: false,
       legend: {
+        display: false,
         position: 'bottom'
+      },
+      scales: {
+            yAxes: [{
+                ticks: {
+                    max: 1200,
+                    min: 800,
+                    fontColor: 'rgba(255, 255, 255, 0.35)',
+                    padding: 30,
+                    fontSize: 14,
+                    callback: function(value, index, values) {
+                        return "$" + value;
+                    }
+                },
+                scaleLabel: {
+                  fontColor: 'rgba(255, 255, 255, 0.35)'
+                },
+                gridLines: {
+                  drawBorder: false,
+                  color: 'rgba(255, 255, 255, 0.15)',
+                  display: true
+                }
+            }],
+            xAxes: [{
+              ticks: {
+                fontColor: 'rgba(255, 255, 255, 0.35)',
+                fontSize: 14
+              },
+              scaleLabel: {
+                fontColor: 'rgba(255, 255, 255, 0.35)'
+              },
+              gridLines: {
+                display: false,
+                drawBorder: false
+              }
+            }]
       }
     }
 
