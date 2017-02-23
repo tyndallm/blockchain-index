@@ -1,7 +1,8 @@
 @import '../../components/variables.css';
 
 body {
-  background-color: #862d78;
+  /*background-color: #862d78;*/
+  background-image: url("../../public/bg.jpg");
 }
 
 .root {
@@ -38,4 +39,39 @@ body {
 
 .left button {
   color: #000;
+}
+
+h5 span {
+  display: block;
+}
+
+.summaryContainer {
+  width:100%;
+}
+
+.summaryListItem {
+    display: inline;
+    margin-right: 32px;
+    margin-top: 20px;
+    list-style: none;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.summaryValue {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 700;
+    font-size: 2em;
+}
+
+.summaryName {
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: .9em;
+    text-transform: capitalize;
+}
+
+.smallCurrency {
+    font-size: .5em;
+    display: inline;
+    color: rgba(255, 255, 255, 0.35);
 }

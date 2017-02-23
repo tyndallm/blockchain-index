@@ -53,19 +53,7 @@ class PortfolioSummary extends Component {
         <li className={s.summaryListItem}>
           <h4>
             <span className={s.summaryName}>Value Change</span>
-            <span className={s.summaryValue}>{profitValueBTC > 0 ? "+" + profitValueBTC : profitValueBTC}<span className={s.smallCurrency}>BTC</span></span>
-          </h4>
-        </li>
-        <li className={s.summaryListItem}>
-          <h4>
-            <span className={s.summaryName}>Value Change</span>
             <span className={s.summaryValue}>${profitValueUSD > 0 ? "+" + profitValueUSD : profitValueUSD}<span className={s.smallCurrency}>USD</span></span>
-          </h4>
-        </li>
-        <li className={s.summaryListItem}>
-          <h4>
-            <span className={s.summaryName}>Current Value</span>
-            <span className={s.summaryValue}>{totalValueBTC}<span className={s.smallCurrency}>BTC</span></span>
           </h4>
         </li>
         <li className={s.summaryListItem}>

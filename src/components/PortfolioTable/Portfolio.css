@@ -1,1 +1,18 @@
 @import '../variables.css';
+
+.portfolioTable {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.portfolioTable td {
+  color: rgba(255, 255, 255, 0.55);
+  border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+}
+
+.portfolioTabl th {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.35) !important;
+}
+
+/*table, th, td {
+    border: 1px solid black;
+}*/
